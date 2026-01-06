@@ -1,0 +1,65 @@
+/* Floating bottom element (card with circular plus) */
+
+
+.fab-card {
+  width: 120px;
+  height: 220px;
+  background: #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 40px rgba(67,56,202,0.14), 0 6px 16px rgba(0,0,0,0.12);
+  pointer-events: auto; /* enable clicks inside card */
+}
+
+.fab-btn {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab-btn .fab-icon {
+  font-size: 48px;
+  color: #111;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.fab-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+}
+
+.fab-btn:active {
+  transform: translateY(-2px);
+}
+
+.fab-btn:focus {
+  outline: 3px solid rgba(99,102,241,0.2);
+  outline-offset: 4px;
+}
+
+.fab-btn[disabled],
+.fab-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* small screens */
+@media (max-width: 420px) {
+  .fab-card { width: 100px; height: 180px; }
+  .fab-btn { width: 72px; height: 72px; }
+  .fab-btn .fab-icon { font-size: 36px; }
+}

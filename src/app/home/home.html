@@ -1,1 +1,55 @@
-<h1>Welcome Home</h1>
+<div class="home-container">
+  <header class="home-hero">
+    <div class="hero-card">
+      <div class="hero-left">
+        <h1 class="title">Now Showing</h1>
+        <p class="subtitle">Popular movies curated from TMDB — clean, centered, and easy to browse.</p>
+        <div class="hero-actions">
+          <button class="cta" (click)="fetchMovies()">Refresh</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="movies-section" role="main">
+    <div class="status-wrap">
+      <div class="status loading" *ngIf="loading" aria-live="polite">Loading movies…</div>
+      <div class="status error" *ngIf="error" aria-live="assertive">{{error}}</div>
+    </div>
+
+    <ul class="movies-grid" *ngIf="!loading && !error">
+      <li *ngFor="let movie of movies; trackBy: trackByMovie" tabindex="0" class="movie-card">
+        <div class="poster">
+          <img [src]="posterUrl(movie.poster_path)" [alt]="movie.title + ' poster'" />
+        </div>
+        <div class="meta">
+          <div class="meta-header">
+            <h3 class="movie-title">{{movie.title}}</h3>
+            <button
+              type="button"
+              class="save-btn"
+              (click)="toggleSave(movie); $event.stopPropagation()"
+              [attr.aria-pressed]="isSaved(movie)"
+              [class.saved]="isSaved(movie)"
+              title="Add to library"
+            >
+              <!-- Heart icon (filled when saved) -->
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 21s-7-4.35-9.2-7.02C-0.65 8.59 5.33 4 8.5 6.6 10.33 8 12 10 12 10s1.67-2 3.5-3.4C18.67 4 24.65 8.59 21.2 13.98 19 16.65 12 21 12 21z"/>
+              </svg>
+              <span class="visually-hidden">{{ isSaved(movie) ? 'Remove from library' : 'Add to library' }}</span>
+            </button>
+          </div>
+          <div class="meta-row">
+            <span class="rating">⭐ {{movie.vote_average}}</span>
+            <span class="year">{{movie.release_date | slice:0:4}}</span>
+          </div>
+          <p class="overview">{{truncated(movie.overview, 120)}}</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="empty" *ngIf="!loading && !error && movies.length === 0">No movies to show.</div>
+  </main>
+</div>
+

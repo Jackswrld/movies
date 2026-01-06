@@ -1,0 +1,78 @@
+/* Home page styles — centralized, modern, and neat UI */
+:root{
+  --bg: #ffffff;
+  --muted: #6b7280;
+  --accent: #6366f1;
+  --accent-2: #60a5fa;
+  --surface: #f8fafc;
+  --glass: rgba(99,102,241,0.06);
+  --card-shadow: rgba(15, 23, 42, 0.08);
+  --radius: 12px;
+  --max-width: 1100px;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+*{box-sizing:border-box}
+body{font-family:var(--font-sans);color:#0f172a;background:linear-gradient(180deg,#fbfdff, #ffffff)}
+
+.home-container{display:flex;flex-direction:column;align-items:center;padding:2rem 1rem}
+
+.home-hero{width:100%;max-width:var(--max-width);margin-bottom:1.5rem}
+.hero-card{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,#ffffff, var(--surface));border-radius:var(--radius);padding:1rem 1.15rem;box-shadow:0 10px 30px var(--card-shadow);gap:1rem}
+.hero-left{flex:1;min-width:0}
+.title{font-size:1.5rem;margin:0 0 0.35rem 0;font-weight:700}
+.subtitle{margin:0;color:var(--muted);font-size:0.98rem}
+.hero-actions{margin-top:0.65rem}
+.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#000;border:0;padding:0.5rem 0.9rem;border-radius:8px;font-weight:600;cursor:pointer;box-shadow:0 8px 20px rgba(99,102,241,0.12);transition:transform .14s ease,box-shadow .14s ease}
+.cta:hover{transform:translateY(-3px)}
+
+.hero-right{margin-left:1rem}
+.reminder{background:#fff;border:1px solid var(--glass);padding:0.5rem 0.75rem;border-radius:8px;color:#111827;font-size:0.9rem}
+
+.movies-section{width:100%;max-width:var(--max-width);margin-top:1rem}
+.status-wrap{width:100%;text-align:center;margin-bottom:0.5rem}
+.status.loading,.status.error{color:var(--muted);padding:0.8rem 0}
+.status.error{color:#b91c1c}
+
+.movies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;list-style:none;padding:0;margin:0}
+
+.movie-card{display:flex;background:linear-gradient(180deg,#fff,var(--surface));border-radius:10px;overflow:hidden;box-shadow:0 10px 30px var(--card-shadow);transition:transform .16s ease,box-shadow .16s ease;cursor:pointer;align-items:flex-start}
+.movie-card:focus{outline:none}
+.movie-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(15,23,42,0.14)}
+
+.poster{width:130px;min-width:130px;height:195px;background:linear-gradient(180deg,#e6eef8,#f8fafc);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover;display:block}
+
+.meta{padding:0.9rem 1rem;display:flex;flex-direction:column;gap:0.45rem;flex:1 1 auto}
+.movie-title{margin:0;font-size:1.02rem;font-weight:700;color:#071233}
+.meta-row{display:flex;gap:0.8rem;align-items:center;color:var(--muted);font-size:0.9rem}
+.overview{margin:0;color:var(--muted);font-size:0.92rem;line-height:1.35}
+
+.meta-header{display:flex;align-items:center;gap:0.6rem}
+
+.save-btn{margin-left:auto;background:transparent;border:0;padding:0.25rem;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:8px;color:var(--muted);width:36px;height:36px;transition:background .12s ease,color .12s ease}
+.save-btn:hover{background:rgba(15,23,42,0.04)}
+.save-btn svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.4}
+.save-btn.saved{color:#ef4444;background:rgba(239,68,68,0.06)}
+.save-btn.saved svg{fill:currentColor;stroke:currentColor}
+
+.visually-hidden{position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+.empty{text-align:center;color:var(--muted);padding:2rem 0}
+
+/* Accessibility */
+.movie-card:focus-visible{box-shadow:0 0 0 4px rgba(99,102,241,0.12), 0 12px 34px rgba(15,23,42,0.12)}
+
+@media (max-width:720px){
+  .hero-card{flex-direction:column;align-items:flex-start}
+  .hero-right{width:100%;margin-left:0}
+  .poster{width:110px;min-width:110px;height:165px}
+}
+
+@media (max-width:420px){
+  .movie-card{flex-direction:column;align-items:center}
+  .poster{width:100%;min-width:unset;height:280px}
+  .meta{text-align:center}
+  .meta-row{justify-content:center}
+}
+

@@ -1,1 +1,15 @@
 <h1>Discover 🗺️</h1>
+
+<div class="container">
+    <ul class="categories-grid">
+        @for (category of categories; track category.id) {
+            <li>
+                <span>
+                    <i [class]="category.fontAwesomeIcon" [style.color]="category.color"></i>
+                </span>
+                <p>{{category.name}}</p>
+                <p>{{category.description}}</p>
+            </li>
+        }
+    </ul>
+</div>

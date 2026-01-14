@@ -96,3 +96,9 @@
 .active .sidenav-link-text {
   color: #000;
 }
+
+@media (max-width: 600px) {
+  .sidenav .logo-container .logo  {
+    background: seagreen;
+  }
+}

@@ -4,12 +4,43 @@
     <ul class="categories-grid">
         @for (category of categories; track category.id) {
             <li>
-                <span>
-                    <i [class]="category.fontAwesomeIcon" [style.color]="category.color"></i>
-                </span>
-                <p>{{category.name}}</p>
-                <p>{{category.description}}</p>
+                <button class="category-btn" type="button" (click)="onCategoryClick(category)" [attr.aria-label]="category.name" (keyup.enter)="onCategoryClick(category)">
+                    <span>
+                        <i [class]="category.fontAwesomeIcon" [style.color]="category.color"></i>
+                    </span>
+                    <p>{{category.name}}</p>
+                    <p>{{category.description}}</p>
+                </button>
             </li>
         }
     </ul>
 </div>
+
+@if (selectedCategory) {
+  <section class="category-results">
+    <h2>Showing: {{selectedCategory.name}}</h2>
+    <p>{{selectedCategory.description}}</p>
+
+    @if (loading) {
+      <p>Loading movies…</p>
+    } @else {
+      @if (error) {
+        <p class="categories-empty">Error: {{error}}</p>
+      } @else {
+        @if (movies.length === 0) {
+          <p class="categories-empty">No movies found for this category.</p>
+        } @else {
+          <ul class="movies-grid">
+            @for (movie of movies; track movie.id) {
+              <li class="movie-card">
+                <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{movie.title}}" />
+                <p class="movie-title">{{movie.title}}</p>
+                <p class="movie-meta">⭐ {{movie.vote_average}} • {{movie.release_date}}</p>
+              </li>
+            }
+          </ul>
+        }
+      }
+    }
+  </section>
+}

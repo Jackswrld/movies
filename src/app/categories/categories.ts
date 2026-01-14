@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Categories as CategoriesService } from '../services/categories';
 
 @Component({
   selector: 'app-categories',
@@ -60,4 +61,26 @@ export class Categories {
     },
   ];
 
+  // UI state
+  selectedCategory: any = null;
+  movies: any[] = [];
+  loading = false;
+  error: string | null = null;
+
+  constructor(private categoriesService: CategoriesService) {}
+
+  async onCategoryClick(category: any) {
+    this.selectedCategory = category;
+    this.movies = [];
+    this.error = null;
+    this.loading = true;
+    try {
+      this.movies = await this.categoriesService.fetchMoviesByGenre(category.id);
+    } catch (err: any) {
+      console.error(err);
+      this.error = err?.message || 'Failed to fetch movies.';
+    } finally {
+      this.loading = false;
+    }
+  }
 }

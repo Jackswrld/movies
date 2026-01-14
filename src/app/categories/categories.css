@@ -40,30 +40,98 @@ h1{
 }
 
 .categories-grid li{
-  background: linear-gradient(180deg, var(--bg) 0%, #f8fafc 100%);
-  border-radius: 12px;
-  padding: 1.25rem;
-  box-shadow: 0 6px 18px var(--card-shadow);
-  text-align: center;
-  transition: transform .18s ease, box-shadow .18s ease;
-  cursor: pointer;
+  padding: 0;
+  background: transparent;
+}
+
+/* The button that replaces the clickable card */
+.category-btn{
   display:flex;
   flex-direction:column;
   align-items:center;
   gap: 0.5rem;
+  width:100%;
+  padding: 1.25rem;
   min-height: 140px;
+  background: linear-gradient(180deg, var(--bg) 0%, #f8fafc 100%);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px var(--card-shadow);
+  text-align: center;
+  transition: transform .18s cubic-bezier(.2,.9,.2,1),
+              box-shadow .22s cubic-bezier(.2,.9,.2,1),
+              background .22s ease,
+              border-color .22s ease;
+  cursor: pointer;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  will-change: transform, box-shadow;
+} 
+
+/* Selected state: lift, accent ring, check badge */
+.category-btn.selected {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(12, 18, 33, 0.18);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,247,250,0.96));
+  border: 1px solid rgba(99,102,241,0.12); /* subtle border */
+}
+
+/* Accent ring using pseudo-element for crisp border */
+.category-btn.selected::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  z-index: -1;
+  filter: blur(6px);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* Check badge top-right */
+.category-btn.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(90deg, #6ee7b7, #a78bfa);
+  color: #fff;
+  font-weight:700;
+  border-radius:50%;
+  box-shadow: 0 6px 14px rgba(16,24,40,0.12);
+  font-size: 0.9rem;
+}
+
+/* Icon emphasis when selected */
+.category-btn.selected span {
+  transform: scale(1.08);
+  box-shadow: 0 10px 20px rgba(12,18,33,0.10);
 }
 
 /* Hover and focus polish */
-.categories-grid li:hover,
-.categories-grid li:focus{
+.category-btn:hover,
+.category-btn:focus{
   transform: translateY(-6px);
   box-shadow: 0 14px 36px rgba(20,20,40,0.12);
   outline: none;
+} 
+
+/* Keyboard focus accessibility */
+.category-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.12), 0 14px 36px rgba(20,20,40,0.12);
 }
 
 /* Icon container */
-.categories-grid li span{
+.category-btn span{
   display:flex;
   align-items:center;
   justify-content:center;
@@ -74,38 +142,107 @@ h1{
   color: #000;
   font-size: 1.5rem;
   box-shadow: 0 6px 12px rgba(0,0,0,0.06);
-}
+} 
 
 /* Title & description */
-.categories-grid li p:first-of-type{
+.category-btn p:first-of-type{
   font-weight: 700;
   margin: 0;
   color: #111827;
   font-size: 1.02rem;
-}
+} 
 
-.categories-grid li p:nth-of-type(2){
+.category-btn p:nth-of-type(2){
   margin: 0;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.3;
+} 
+
+/* Category results / movie cards */
+.category-results{
+  width:100%;
+  max-width:1100px;
+  margin: 2rem auto;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.62), rgba(250,250,255,0.56));
+  box-shadow: 0 12px 40px rgba(12,18,33,0.06);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(15, 23, 42, 0.03);
+}
+
+/* Heading & meta */
+.category-results h2 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.15rem;
+  letter-spacing: -0.2px;
+}
+.category-results p { margin: 0 0 0.75rem 0; color: var(--muted); font-size: 0.95rem; }
+
+/* Movies grid: modern card layout */
+.movies-grid{
+  display:grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  list-style:none;
+  padding:0;
+  margin:1rem 0 0 0;
+}
+
+.movie-card{
+  text-align:left;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.5rem;
+  transition: transform .18s ease, box-shadow .18s ease;
+  overflow: hidden;
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+.movie-card:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(12,18,33,0.08);
+}
+
+.movie-card img{
+  width:100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px;
+  display:block;
+  margin:0 0 0.6rem 0;
+  background: linear-gradient(180deg, #e9eef6, #f8fafc);
+}
+
+.movie-title{
+  font-weight:700;
+  margin:0 0 0.25rem 0;
+  font-size: 0.95rem;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.movie-meta{
+  margin:0;
+  color:var(--muted);
+  font-size:0.82rem;
+}
+
+/* Empty / loading state */
+.categories-empty, .category-results p.loading {
+  text-align:center;
+  color: var(--muted);
+  padding: 1rem 0;
 }
 
 /* Small screens tweak */
 @media (max-width:480px){
   .container{padding:1rem; min-height: auto}
-  .categories-grid li{padding:0.9rem; min-height:120px}
-  .categories-grid li span{width:52px;height:52px;font-size:1.25rem}
-}
-
-/* Accessibility: focus visible */
-.categories-grid li:focus-visible{
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.15), 0 12px 30px rgba(20,20,40,0.12);
-}
-
-/* Utility: center empty state message */
-.categories-empty{
-  text-align:center;
-  color: var(--muted);
-  padding: 2rem 0;
+  .category-btn{padding:0.9rem; min-height:120px}
+  .category-btn span{width:52px;height:52px;font-size:1.25rem}
+  .category-results{ padding: 0.9rem; }
+  .movie-card img{ height:160px; }
+  .category-btn.selected::after{ width:24px; height:24px; font-size:0.8rem; top:8px; right:8px; }
 }

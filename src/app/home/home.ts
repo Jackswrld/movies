@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HomeService } from '../services/home';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +17,10 @@ export class Home {
   private libraryKey = 'libraryMovieIds';
   private savedIds = new Set<number>();
 
-  constructor() {
+  constructor(private homeService: HomeService) {
     // Load saved library state and start fetching movies
     this.loadLibrary();
-    this.fetchMovies();
+    this.loadMovies();
   }
 
   private loadLibrary() {
@@ -54,26 +55,15 @@ export class Home {
     this.saveLibrary();
   }
 
-  async fetchMovies() {
-    // Replace 'YOUR_TMDB_API_KEY' with a valid TMDB API key (https://www.themoviedb.org)
-    const API_KEY = 'a8d66966b5aecf286bd240acbe78a1e6';
-    const TMDB_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-
+  async loadMovies() {
+    this.loading = true;
+    this.error = '';
     try {
-      const res = await fetch(TMDB_URL);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      this.movies = (json.results || []).map((m: any) => ({
-        id: m.id,
-        title: m.title,
-        overview: m.overview,
-        poster_path: m.poster_path,
-        vote_average: m.vote_average,
-        release_date: m.release_date,
-      }));
+      this.movies = await this.homeService.fetchMovies();
     } catch (err) {
       console.error(err);
       this.error = 'Failed to load movies. Check your API key or network and try again.';
+      this.movies = [];
     } finally {
       this.loading = false;
     }

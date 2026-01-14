@@ -1,0 +1,80 @@
+/* GitHub-like 404 styles — left-aligned, near top of page */
+:host {
+  display: block;
+  padding: 6rem 1.25rem 3rem; /* push content down from top */
+  box-sizing: border-box;
+  background: var(--pnf-bg, #f6f8fa);
+  color: var(--pnf-text, #24292e);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, system-ui, sans-serif;
+}
+
+/* Single-column left-aligned content with a small left inset */
+:host > * {
+  width: 100%;
+  max-width: 760px;
+  margin-left: 6%; /* offset similar to GitHub */
+  text-align: left;
+}
+
+/* Main layout: large monospace code on top, helper text below */
+h1 {
+  margin: 0 0 8px 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+  font-weight: 700;
+  color: var(--pnf-heading, #2f363d);
+  font-size: clamp(3.6rem, 8vw, 8.5rem); /* big but constrained since not centered */
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+/* Description text similar to GitHub's subtle tone */
+p {
+  margin: 0 0 18px 0;
+  color: var(--pnf-muted, #6a737d);
+  font-size: 1.05rem;
+}
+
+/* Primary link: simple inline link  */
+a {
+  color: var(--pnf-link, #0366d6);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(3, 102, 214, 0.06);
+  transition: background-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+a:hover,
+a:focus {
+  background-color: rgba(3, 102, 214, 0.04);
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.04);
+  transform: translateY(-1px);
+  outline: none;
+  cursor: pointer;
+}
+
+a:focus-visible {
+  box-shadow: 0 0 0 6px rgba(3, 102, 214, 0.06);
+}
+
+@media (max-width: 720px) {
+  :host > * { margin-left: 5%; }
+  h1 {
+    font-size: 4.8rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  a,
+  a:hover,
+  a:focus {
+    transition: none !important;
+  }
+}

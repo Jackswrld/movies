@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeService } from '../services/home';
+import { MovieCardComponent } from '../components/movie-card/movie-card';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, MovieCardComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -17,7 +19,7 @@ export class Home {
   private libraryKey = 'libraryMovieIds';
   private savedIds = new Set<number>();
 
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: HomeService, private router: Router) {
     // Load saved library state and start fetching movies
     this.loadLibrary();
     this.loadMovies();
@@ -80,5 +82,9 @@ export class Home {
 
   trackByMovie(_: number, movie: any) {
     return movie && movie.id;
+  }
+
+  navigateToAuth() {
+    this.router.navigate(['/auth']);
   }
 }

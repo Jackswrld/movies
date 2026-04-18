@@ -2,7 +2,7 @@
   background: #014143;
   transition: all 0.5s ease;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 17.5625rem;
@@ -20,7 +20,7 @@
   width: 100%;
 }
 .sidenav .logo-container .logo {
-  background: #0d0d0d;
+  background: #f2f0f0;
   text-align: center;
   width: 3rem;
   min-width: 3rem;

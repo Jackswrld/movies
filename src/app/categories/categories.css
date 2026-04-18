@@ -10,10 +10,17 @@
 /* Page heading */
 h1{
   text-align:center;
-  margin: 0 0 1rem 0;
-  font-size: 1.6rem;
+  margin: 0 0 0.75rem 0;
+  font-size: 1.4rem;
   color: #111827;
   font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  h1{
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
 }
 
 /* Center the content vertically and horizontally */
@@ -21,22 +28,43 @@ h1{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding: 2rem;
-  min-height: calc(100vh - 120px);
+  padding: 1rem;
+  min-height: auto;
   box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .container{
+    padding: 2rem;
+    min-height: calc(100vh - 120px);
+  }
 }
 
 /* Responsive grid that keeps items centered */
 .categories-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
   width: 100%;
   max-width: 1100px;
   list-style: none;
   padding: 0;
   margin: 0 auto;
   align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .categories-grid{
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .categories-grid{
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
 }
 
 .categories-grid li{
@@ -68,6 +96,22 @@ h1{
   text-decoration: none;
   position: relative;
   will-change: transform, box-shadow;
+}
+
+@media (max-width: 640px) {
+  .category-btn{
+    padding: 1rem;
+    min-height: 130px;
+    gap: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-btn{
+    padding: 0.9rem 0.75rem;
+    min-height: 120px;
+    gap: 0.35rem;
+  }
 } 
 
 /* Selected state: lift, accent ring, check badge */
@@ -142,6 +186,22 @@ h1{
   color: #000;
   font-size: 1.5rem;
   box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+}
+
+@media (max-width: 640px) {
+  .category-btn span{
+    width:56px;
+    height:56px;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-btn span{
+    width:48px;
+    height:48px;
+    font-size: 1rem;
+  }
 } 
 
 /* Title & description */
@@ -150,6 +210,18 @@ h1{
   margin: 0;
   color: #111827;
   font-size: 1.02rem;
+}
+
+@media (max-width: 640px) {
+  .category-btn p:first-of-type{
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-btn p:first-of-type{
+    font-size: 0.9rem;
+  }
 } 
 
 .category-btn p:nth-of-type(2){
@@ -183,51 +255,29 @@ h1{
 /* Movies grid: modern card layout */
 .movies-grid{
   display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   list-style:none;
   padding:0;
   margin:1rem 0 0 0;
 }
 
-.movie-card{
-  text-align:left;
-  background: #fff;
-  border-radius: 10px;
-  padding: 0.5rem;
-  transition: transform .18s ease, box-shadow .18s ease;
-  overflow: hidden;
-  border: 1px solid rgba(15,23,42,0.04);
+@media (min-width: 640px) {
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1.25rem;
+  }
 }
 
-.movie-card:hover{
-  transform: translateY(-8px);
-  box-shadow: 0 18px 40px rgba(12,18,33,0.08);
+@media (min-width: 1024px) {
+  .movies-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
 }
 
-.movie-card img{
-  width:100%;
-  height: 210px;
-  object-fit: cover;
-  border-radius: 8px;
-  display:block;
-  margin:0 0 0.6rem 0;
-  background: linear-gradient(180deg, #e9eef6, #f8fafc);
-}
-
-.movie-title{
-  font-weight:700;
-  margin:0 0 0.25rem 0;
-  font-size: 0.95rem;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.movie-meta{
-  margin:0;
-  color:var(--muted);
-  font-size:0.82rem;
+.movie-card-item {
+  list-style: none;
 }
 
 /* Empty / loading state */
@@ -243,6 +293,5 @@ h1{
   .category-btn{padding:0.9rem; min-height:120px}
   .category-btn span{width:52px;height:52px;font-size:1.25rem}
   .category-results{ padding: 0.9rem; }
-  .movie-card img{ height:160px; }
   .category-btn.selected::after{ width:24px; height:24px; font-size:0.8rem; top:8px; right:8px; }
 }

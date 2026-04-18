@@ -1,0 +1,129 @@
+<div class="auth-container">
+  <div class="auth-wrapper">
+    <!-- Login Form -->
+    <div class="auth-form" [ngClass]="{ 'hidden': !isLoginMode }">
+      <div class="form-header">
+        <h1 class="form-title">Welcome Back</h1>
+        <p class="form-subtitle">Sign in to your account</p>
+      </div>
+
+      <form (ngSubmit)="onLogin()" class="form-content">
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="login-email"
+            class="form-input"
+            placeholder="you@example.com"
+            [(ngModel)]="loginForm.email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="login-password"
+            class="form-input"
+            placeholder="Enter your password"
+            [(ngModel)]="loginForm.password"
+            name="password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="auth-btn primary">Sign In</button>
+      </form>
+
+      <div class="form-footer">
+        <p class="toggle-text">
+          Don't have an account?
+          <button class="toggle-link" (click)="toggleMode()">
+            Create one
+          </button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="auth-form" [ngClass]="{ 'hidden': isLoginMode }">
+      <div class="form-header">
+        <h1 class="form-title">Create Account</h1>
+        <p class="form-subtitle">Join us and start exploring movies</p>
+      </div>
+
+      <form (ngSubmit)="onRegister()" class="form-content">
+        <div class="form-group">
+          <label for="register-name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            id="register-name"
+            class="form-input"
+            placeholder="John Doe"
+            [(ngModel)]="registerForm.fullName"
+            name="fullName"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="register-email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            id="register-email"
+            class="form-input"
+            placeholder="you@example.com"
+            [(ngModel)]="registerForm.email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="register-password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="register-password"
+            class="form-input"
+            placeholder="Create a strong password"
+            [(ngModel)]="registerForm.password"
+            name="password"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="register-confirm" class="form-label"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            id="register-confirm"
+            class="form-input"
+            placeholder="Confirm your password"
+            [(ngModel)]="registerForm.confirmPassword"
+            name="confirmPassword"
+            required
+          />
+        </div>
+
+        <button type="submit" class="auth-btn primary">Create Account</button>
+      </form>
+
+      <div class="form-footer">
+        <p class="toggle-text">
+          Already have an account?
+          <button class="toggle-link" (click)="toggleMode()">
+            Sign in
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Elements -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2"></div>
+</div>

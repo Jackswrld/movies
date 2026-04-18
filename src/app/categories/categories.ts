@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Categories as CategoriesService } from '../services/categories';
+import { MovieCardComponent } from '../components/movie-card/movie-card';
 
 @Component({
   selector: 'app-categories',
-  imports: [],
+  imports: [CommonModule, MovieCardComponent],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })
@@ -67,7 +69,44 @@ export class Categories {
   loading = false;
   error: string | null = null;
 
-  constructor(private categoriesService: CategoriesService) {}
+  private libraryKey = 'libraryMovieIds';
+  private savedIds = new Set<number>();
+
+  constructor(private categoriesService: CategoriesService) {
+    this.loadLibrary();
+  }
+
+  private loadLibrary() {
+    try {
+      const raw = localStorage.getItem(this.libraryKey);
+      const arr = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(arr)) arr.forEach((id: number) => this.savedIds.add(id));
+    } catch (e) {
+      console.warn('Failed to load library from localStorage', e);
+    }
+  }
+
+  private saveLibrary() {
+    try {
+      localStorage.setItem(this.libraryKey, JSON.stringify(Array.from(this.savedIds)));
+    } catch (e) {
+      console.warn('Failed to save library to localStorage', e);
+    }
+  }
+
+  isSaved(movie: any) {
+    return movie && this.savedIds.has(movie.id);
+  }
+
+  toggleSave(movie: any) {
+    if (!movie || !movie.id) return;
+    if (this.savedIds.has(movie.id)) {
+      this.savedIds.delete(movie.id);
+    } else {
+      this.savedIds.add(movie.id);
+    }
+    this.saveLibrary();
+  }
 
   async onCategoryClick(category: any) {
     this.selectedCategory = category;

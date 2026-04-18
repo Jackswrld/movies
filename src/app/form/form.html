@@ -1,0 +1,165 @@
+<div class="form-wrapper">
+  <form #myform="ngForm" (ngSubmit)="onSubmit()" class="modern-form">
+    <div class="form-header">
+      <h1 class="form-title">Movie Details Form</h1>
+      <p class="form-subtitle">Share your favorite movie information</p>
+    </div>
+
+    <!-- Name Field -->
+    <div class="form-group">
+      <label for="name" class="form-label">
+        <span class="label-text">Full Name</span>
+        <span class="required">*</span>
+      </label>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-input"
+          required
+          minlength="3"
+          maxlength="10"
+          pattern="[a-zA-Z]*"
+          placeholder="Enter your full name"
+          [(ngModel)]="userModel.name"
+          #nameField="ngModel"
+        />
+        <span class="input-icon">👤</span>
+      </div>
+      @if(nameField.touched && nameField.errors?.['required']) {
+        <span class="error-message">Name is required</span>
+      }
+      @if(nameField.touched && nameField.errors?.['minlength']) {
+        <span class="error-message">Name must be at least 3 characters</span>
+      }
+    </div>
+
+    <!-- Phone Number Field -->
+    <div class="form-group">
+      <label for="phoneNumber" class="form-label">
+        <span class="label-text">Phone Number</span>
+        <span class="required">*</span>
+      </label>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="phoneNumber"
+          name="phoneNumber"
+          class="form-input"
+          minlength="11"
+          maxlength="11"
+          required
+          pattern="[0-9]{11}"
+          placeholder="09xxxxxxxxx"
+          [(ngModel)]="userModel.phoneNumber"
+          #phoneField="ngModel"
+        />
+        <span class="input-icon">📱</span>
+      </div>
+      @if(phoneField.touched && phoneField.errors?.['required']) {
+        <span class="error-message">Phone number is required</span>
+      }
+      @if(phoneField.touched && phoneField.errors?.['pattern']) {
+        <span class="error-message">Phone must be 11 digits</span>
+      }
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+      <label for="email" class="form-label">
+        <span class="label-text">Email Address</span>
+        <span class="required">*</span>
+      </label>
+      <div class="input-wrapper">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          placeholder="your.email@example.com"
+          email
+          minlength="3"
+          maxlength="20"
+          required
+          [(ngModel)]="userModel.email"
+          #email="ngModel"
+        />
+        <span class="input-icon">✉️</span>
+      </div>
+      @if(email.touched && email.errors?.['required']) {
+        <span class="error-message">Email is required</span>
+      }
+      @if(email.touched && email.errors?.['email']) {
+        <span class="error-message">Please enter a valid email</span>
+      }
+    </div>
+
+    <!-- Favorite Checkbox -->
+    <div class="form-group checkbox-group">
+      <div class="checkbox-wrapper">
+        <input
+          type="checkbox"
+          id="favorite"
+          name="favorite"
+          class="form-checkbox"
+          [(ngModel)]="userModel.favorite"
+        />
+        <label for="favorite" class="checkbox-label">
+          <span class="checkbox-icon">⭐</span>
+          Add this movie to my favorites
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label"> 
+        <span class="label-text">Password</span>
+        <span class="required">*</span>
+      </label>
+      <div class="input-wrapper">
+        <input 
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter password"
+        password
+        class="form-input"
+        minlength="5"
+        maxlength="8"
+        pattern="(?=.*[A-Z])(?=.*[0-9]).*"
+        required
+        [(ngModel)] = "userModel.password"
+        #password = "ngModel"
+        >
+        <span class="input-icon">🔐</span>
+      </div>
+      @if (password.touched && password.errors?.['required']) {
+        <span class="error-message">password is required</span>
+      }
+      @if (password.touched && password.errors?.['minlength']) {
+        <span class="error-message">password is too short</span>
+      }
+      @if (password.touched && password.errors?.['pattern']) {
+        <span class="error-message">password must contain at least one uppercase letter and one number</span>
+      }
+    </div>
+
+    <!-- Submit Button -->
+    <button 
+      type="submit" 
+      class="submit-button"
+      [disabled]="!myform.valid"
+    >
+      <span class="button-text">Submit Movie</span>
+      <span class="button-icon">→</span>
+    </button>
+
+    <!-- Form Status Message -->
+    @if(myform.valid && myform.submitted) {
+      <div class="success-message">
+        ✓ Form submitted successfully!
+      </div>
+    }
+  </form>
+</div>

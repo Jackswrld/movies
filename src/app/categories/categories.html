@@ -32,10 +32,12 @@
         } @else {
           <ul class="movies-grid">
             @for (movie of movies; track movie.id) {
-              <li class="movie-card">
-                <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" alt="{{movie.title}}" />
-                <p class="movie-title">{{movie.title}}</p>
-                <p class="movie-meta">⭐ {{movie.vote_average}} • {{movie.release_date}}</p>
+              <li class="movie-card-item">
+                <app-movie-card 
+                  [movie]="movie" 
+                  [isSaved]="isSaved(movie)"
+                  (toggleSave)="toggleSave($event)">
+                </app-movie-card>
               </li>
             }
           </ul>

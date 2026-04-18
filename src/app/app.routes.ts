@@ -4,6 +4,8 @@ import { Home } from './home/home';
 import { Categories } from './categories/categories';
 import { Library } from './library/library';
 import { Redirect } from './redirect/redirect';
+import { Form } from './form/form';
+import { Auth } from './auth/auth';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -11,7 +13,8 @@ export const routes: Routes = [
     {path: 'categories', component: Categories},
     {path: 'settings', component: Settings},
     {path: 'library', component: Library},
-
+    {path: 'form',  component: Form},
+    {path: 'auth', component: Auth},
 
     {path: '**', component: Redirect}
 ];

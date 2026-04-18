@@ -1,10 +1,27 @@
-<h1>Favorites</h1>
+<div class="library-container">
+  <header class="library-hero">
+    <h1>My Library</h1>
+    <p class="subtitle">Movies you've saved and want to keep track of</p>
+  </header>
 
+  <main class="movies-section" role="main">
+    <div class="status-wrap">
+      <div class="status loading" *ngIf="loading" aria-live="polite">Loading your library…</div>
+      <div class="status error" *ngIf="error" aria-live="assertive">{{error}}</div>
+      <div class="status empty" *ngIf="!loading && !error && savedMovies.length === 0">
+        <p>📚 Your library is empty</p>
+        <p class="empty-text">Go to the home page and click the heart icon to save movies!</p>
+      </div>
+    </div>
 
-<div class="fab-container" aria-hidden="false">
-  <div class="fab-card">
-     <button class="fab-btn" aria-label="Add to library">
-        <i  class="fa-solid fa-plus  fab-icon"></i>
-    </button>
-  </div>
+    <ul class="movies-grid" *ngIf="!loading && !error && savedMovies.length > 0">
+      <li *ngFor="let movie of savedMovies; trackBy: trackByMovie" class="movie-card-item">
+        <app-movie-card 
+          [movie]="movie" 
+          [isSaved]="true"
+          (toggleSave)="removeSaved($event)">
+        </app-movie-card>
+      </li>
+    </ul>
+  </main>
 </div>

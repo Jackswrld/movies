@@ -6,15 +6,38 @@
   top: 0;
   transition: all 0.5s ease;
   background: #f4f7fa;
-  padding: 3rem;
+  padding: 1.5rem;
+  min-height: 100vh;
 }
 
 .body-trimmed {
   width: calc(100% - 16.5625rem);
   margin-left: 16.5625rem;
+  padding: 2rem;
 }
 
 .body-md-screen {
   width: calc(100% - 5rem);
   margin-left: 5rem;
+  padding: 1rem;
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+  .body {
+    padding: 2rem;
+  }
+  .body-trimmed {
+    padding: 2.5rem;
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .body {
+    padding: 3rem;
+  }
+  .body-trimmed {
+    padding: 3rem;
+  }
 }

@@ -2,7 +2,29 @@
   <button class="auth-btn-circular" (click)="navigateToAuth()" type="button" title="Go to authentication" aria-label="Authentication">
     <i class="fa-solid fa-user-circle"></i>
   </button>
-
+  <nav class="search-nav">
+    <div class="search-container">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input 
+        type="text" 
+        class="search-input"
+        placeholder="Search for movies...
+"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch(searchQuery)"
+        (keydown.enter)="onSearch(searchQuery)"
+        aria-label="Search movies">
+      <button 
+        *ngIf="searchQuery" 
+        type="button" 
+        class="clear-btn"
+        (click)="clearSearch()"
+        title="Clear search"
+        aria-label="Clear search">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </nav>
   <header class="home-hero">
     <div class="hero-card">
       <div class="hero-left">
@@ -16,11 +38,17 @@
 
   <main class="movies-section" role="main">
     <div class="status-wrap">
-      <div class="status loading" *ngIf="loading" aria-live="polite">Loading movies…</div>
-      <div class="status error" *ngIf="error" aria-live="assertive">{{error}}</div>
+      <div class="status loading" *ngIf="loading || isSearching" aria-live="polite">
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+        {{ loading ? 'Loading movies…' : 'Searching...' }}
+      </div>
+      <div class="status error" *ngIf="error" aria-live="assertive">{{ error }}</div>
+      <div class="status success" *ngIf="searchPerformed && !loading && !isSearching && movies.length > 0" aria-live="polite">
+        Found {{ movies.length }} movie{{ movies.length !== 1 ? 's' : '' }} for "{{ searchQuery }}"
+      </div>
     </div>
 
-    <ul class="movies-grid" *ngIf="!loading && !error">
+    <ul class="movies-grid" *ngIf="!loading && !isSearching && !error">
       <li *ngFor="let movie of movies; trackBy: trackByMovie" class="movie-card-item">
         <app-movie-card 
           [movie]="movie" 
@@ -30,7 +58,9 @@
       </li>
     </ul>
 
-    <div class="empty" *ngIf="!loading && !error && movies.length === 0">No movies to show.</div>
+    <div class="empty" *ngIf="!loading && !isSearching && !error && movies.length === 0">
+      {{ searchPerformed ? 'No results found. Try a different search.' : 'No movies to show.' }}
+    </div>
   </main>
 </div>
 

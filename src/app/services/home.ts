@@ -57,4 +57,22 @@ export class HomeService {
       release_date: m.release_date,
     };
   }
+
+  async searchMovies(query: string): Promise<any[]> {
+    if (!query.trim()) return [];
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${this.API_KEY}&language=en-US&query=${encodeURIComponent(query)}&page=1`;
+    const res = await fetch(searchUrl);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    return (json.results || []).map((m: any) => ({
+      id: m.id,
+      title: m.title,
+      overview: m.overview,
+      poster_path: m.poster_path,
+      vote_average: m.vote_average,
+      release_date: m.release_date,
+      genre_ids: m.genre_ids || [],
+      genres: (m.genre_ids || []).map((id: number) => this.genreMap.get(id)).filter((g: any) => g),
+    }));
+  }
 }

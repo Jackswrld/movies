@@ -39,14 +39,6 @@ export class Categories {
       color: '#0a9396'
     },
     {
-      name: 'K-drama',
-      id: 5,
-      description: 'Korean dramas known for emotional storytelling, romance, and memorable characters.',
-      fontAwesomeIcon: 'fas fa-moon',
-      color: '#9d4edd'
-    },
-
-    {
       name: 'Animations',
       id: 6,
       description: 'Animated films for all ages featuring imaginative visuals and heartfelt stories.',
